@@ -1,19 +1,19 @@
----Intent-----
+---User Stories-----
 
-The purpose of this application is to take in one player's battle data from the game Heroes of the Storm, and use the information to analyze the player's win% as each heroes, with, and against each hero, on each map and make draft recommendations based on this analysis.
+As a HotS player, I want to see which heroes I win with most on particular maps so that I can choose the best hero during a draft for the map.
+
+As a HotS player, I want to see which heroes I win with most against particular heroes so that I can choose the best hero during a draft to counter opponent choices
+
+As a HotS player, I want to see which heroes I win with the most when playing along side particular heroes so that I can choose the best hero during a draft to go with team mate choices.
+
+As a HotS player, I want to see which heroes I win with most so that I can choose the best hero during a draft when lacking more specific data
+
+As a HotS player, I want see a list of top hero picks based on all relevant stats during a draft so that I can make better draft picks and increase my win rate.
+
+---What is HotS----
 
 Heroes of the Storm wiki: https://en.wikipedia.org/wiki/Heroes_of_the_Storm
 
 ---Notes-----
 
-While the initial intention of this program could be accomplished well enough with a 1 player to many heroes and maps model, I am writing this as a many players to many heroes through battles model to allow for flexible functionality in the future.
-
----Explanation of terms-----
-
-player: battles have many payers, 10 to be exactly, but the player for our purposes represents the player who's data is being analyzed.
-
-hero_as: the hero the player played as this battle
-
-heroes_with: the heroes played by the player's team mates
-
-heroes_against: the heroes played by the player's opponents
+The first release of this project will only accommodate for one user, the database will be constructed from only that user's battles. It can later be adapted for multiple users by adding a Player model to the database, or storing a database for each player.
