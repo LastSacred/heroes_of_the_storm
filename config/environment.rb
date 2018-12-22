@@ -1,14 +1,6 @@
 require 'bundler'
 Bundler.require
 
-# DB = {
-#   conn: SQLite3::Database.net('db/personal_hots_coach.db')
-# }
-# DB[:conn].results_as_hash = true
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/user.db')
 
-# classes
-require_relative "../lib/battle.rb"
-require_relative "../lib/hero.rb"
-require_relative "../lib/map.rb"
-require_relative "../lib/player.rb"
-# modules
+require_all 'lib'
