@@ -10,17 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_22_195147) do
-
-  create_table "battles", force: :cascade do |t|
-    t.string "name"
-    t.integer "result"
-    t.integer "map_id"
-  end
+ActiveRecord::Schema.define(version: 2018_12_24_043129) do
 
   create_table "hero_picks", force: :cascade do |t|
     t.string "picked_by"
-    t.integer "battle_id"
+    t.integer "match_id"
     t.integer "hero_id"
   end
 
@@ -31,6 +25,18 @@ ActiveRecord::Schema.define(version: 2018_12_22_195147) do
 
   create_table "maps", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "result"
+    t.integer "map_id"
+    t.integer "replay_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "battletag"
+    t.integer "last_import"
+    t.integer "region"
   end
 
 end

@@ -1,19 +1,17 @@
----User Stories-----
+# Personal HotS Coach
 
-As a HotS player, I want to see which heroes I win with most on particular maps so that I can choose the best hero during a draft for the map.
+Personal HotS Coach is a tool that allows the user to upload historical match data. It then uses this data to make hero selection recommendations during a draft based on the user's performance on the map, and with and against the heroes that have been selected so far.
 
-As a HotS player, I want to see which heroes I win with most against particular heroes so that I can choose the best hero during a draft to counter opponent choices
-
-As a HotS player, I want to see which heroes I win with the most when playing along side particular heroes so that I can choose the best hero during a draft to go with team mate choices.
-
-As a HotS player, I want to see which heroes I win with most so that I can choose the best hero during a draft when lacking more specific data
-
-As a HotS player, I want see a list of top hero picks based on all relevant stats during a draft so that I can make better draft picks and increase my win rate.
-
----What is HotS----
+## What is HotS
 
 Heroes of the Storm wiki: https://en.wikipedia.org/wiki/Heroes_of_the_Storm
 
----Notes-----
+## Notes
 
 The first release of this project will only accommodate for one user, the database will be constructed from only that user's battles. It can later be adapted for multiple users by adding a Player model to the database, or storing a database for each player.
+
+## Import
+
+Currently, the import process uses APIs to search every match record on http://hotsapi.net. You must have uploaded your replays for this to work. Instructions are available on how to do this here: http://hotsapi.net/upload. This can be a very long and inefficient process. I will work on a way to parse the replays myself.
+
+In the meantime you can speed up the process a little by manually setting the value under PROFILE.last_import. Go to http://hotsapi.net/swagger and do a manual search by id. Look at the date created for the search result to find an entry created shortly before you uploaded your first one. Use the Replays Uploaded counter in the top right to help you estimate. 
