@@ -14,4 +14,12 @@ The first release of this project will only accommodate for one user, the databa
 
 Currently, the import process uses APIs to search every match record on http://hotsapi.net. You must have uploaded your replays for this to work. Instructions are available on how to do this here: http://hotsapi.net/upload. This can be a very long and inefficient process. I will work on a way to parse the replays myself.
 
-In the meantime you can speed up the process a little by manually setting the value under PROFILE.last_import. Go to http://hotsapi.net/swagger and do a manual search by id. Look at the date created for the search result to find an entry created shortly before you uploaded your first one. Use the Replays Uploaded counter in the top right to help you estimate. 
+In the meantime you can speed up the process a little by manually setting the value under PROFILE.last_import. Go to http://hotsapi.net/swagger and do a manual search by id. Look at the date created for the search result to find an entry created shortly before you uploaded your first one. Once you find one, use its id number as the last import. Use the Replays Uploaded counter in the top right to help you estimate.
+
+## still to do
+
+1. TODO: build draft interface
+
+2. TODO: build stats interface
+
+3. TODO: build run file to chose between options: setup user, import, stats, draft

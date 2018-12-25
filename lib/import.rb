@@ -26,7 +26,7 @@ class Import
       0
     end
   end
-
+  #TODO: add hero and map import with hero roles
   def initialize
     loop do
       data = RestClient.get 'http://hotsapi.net/api/v1/replays/', {params: {min_id: (PROFILE.last_import + 1), with_players: true}}
@@ -69,7 +69,7 @@ class Import
         PROFILE.last_import = match["id"]
         PROFILE.save
       end
-      sleep(2)
+      sleep(4)
     end
 
   end
