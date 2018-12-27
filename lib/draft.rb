@@ -1,33 +1,10 @@
 class Draft
 
-  def find_by_shorthand(objects)
-    loop do
-      input = gets.strip
-      return "back" if input == "back"
-      exit if input == "exit"
-
-      result = objects.select do |object|
-        object.name.downcase.gsub('ú', 'u').gsub(/[^a-z]/,'').start_with?(input)
-      end
-      if result.count == 0
-        puts ""
-        puts "No match found. Try again."
-      elsif result.count ==1
-          return result[0]
-      else
-        puts ""
-        puts "Multiple matches found"
-        result.each { |result| puts result.name.yellow }
-        puts "Try again."
-      end
-    end
-
-  end
-
   def check_for_duplicates(result)
-    if (@draft.withheroes + @draft.againstheroes + @draft.bans).include?(result[0])
+    if (@draft.withheroes + @draft.againstheroes + @draft.bans).include?(result)
       puts ""
       puts "Hero already selected. Try again."
+      "back"
     else
       result
     end
@@ -36,10 +13,7 @@ class Draft
   def welcome
     puts ""
     puts "Starting Draft Coach"
-    puts ""
-    puts "When typing names of heroes and maps type all lower case with no"
-    puts "spaces or special characters. Type enough characters to make it unique."
-    puts "you may always go back by typing 'back' or exit by typing 'exit'"
+    welcome_info
   end
 
   def get_map
@@ -47,12 +21,13 @@ class Draft
     puts "Enter map:"
     input = find_by_shorthand(Map.all)
 
+    #FIXME: go to run if input == "back"
+
     puts ""
     puts input.name.green
     puts "---------------------------".red
     puts ""
 
-    go = Draft.new if input == "back"
     input
   end
 
@@ -67,33 +42,33 @@ class Draft
 
   def enter_ban
     puts ""
-    puts "Enter a banned hero"
-    input = find_by_shorthand(Hero.all)
+    puts "Enter a banned hero:"
+    input = check_for_duplicates(find_by_shorthand(Hero.all))
     return if input == "back"
-    @draft.bans << check_for_duplicates(input)
+    @draft.bans << input
   end
 
   def enter_teammate
     puts ""
     puts "Enter a teammate pick:"
-    input = find_by_shorthand(Hero.all)
+    input = check_for_duplicates(find_by_shorthand(Hero.all))
     return if input == "back"
-    @draft.withheroes << check_for_duplicates(input)
+    @draft.withheroes << input
   end
 
   def enter_opponent
     puts ""
     puts "Enter a opponent pick:"
-    input = find_by_shorthand(Hero.all)
+    input = check_for_duplicates(find_by_shorthand(Hero.all))
     return if input == "back"
-    @draft.againstheroes << check_for_duplicates(input)
+    @draft.againstheroes << input
   end
 
-  def print_list(list)
-    list.each do |hero|
-      puts hero.name.yellow
-    end
-  end
+  # def print_hero_list(list)
+  #   list.each do |hero|
+  #     puts hero.name.yellow
+  #   end
+  # end
 
   def show_selections
     puts ""
@@ -101,15 +76,15 @@ class Draft
 
     puts ""
     puts "Bans"
-    print_list(@draft.bans)
+    print_hero_list(@draft.bans)
 
     puts ""
     puts "Team picks"
-    print_list(@draft.withheroes)
+    print_hero_list(@draft.withheroes)
 
     puts ""
     puts "Opponent picks"
-    print_list(@draft.againstheroes)
+    print_hero_list(@draft.againstheroes)
 
     puts "---------------------------".red
     puts ""

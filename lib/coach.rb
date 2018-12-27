@@ -1,6 +1,6 @@
 class Coach
   attr_reader :user_picks, :user_heroes
-  attr_accessor :map, :withheroes, :againstheroes, :bans
+  attr_accessor :map, :withheroes, :againstheroes, :bans, :otherhero
 
   #params - :map :withheroes :againstheroes :bans
   #TODO: allow users to manually include and exclude user_heroes. Saves in db
@@ -11,6 +11,7 @@ class Coach
     @withheroes = params[:withheroes]
     @againstheroes = params[:againstheroes]
     @bans = params[:bans]
+    @otherhero = params[:otherhero]
   end
 
   def matches_as_hero(ashero)
@@ -46,7 +47,7 @@ class Coach
       results << filler
     end
 
-    results.sum / results.count
+    mean(results)
   end
 
   def sort_and_print(list)
@@ -62,7 +63,7 @@ class Coach
 
   def score_as_hero(ashero)
     matches = matches_as_hero(ashero)
-    filler = 500
+    filler = score_as_all_heroes
 
     get_score(matches, filler)
   end
@@ -83,7 +84,7 @@ class Coach
     get_score(matches, filler)
   end
 
-  def rank_including_hero(otherhero, relationship)
+  def rank_including_hero(otherhero=@otherhero, relationship)
     list = {}
 
     @user_heroes.each do |ashero|
@@ -99,7 +100,7 @@ class Coach
     get_score(matches, filler)
   end
 
-  def rank_on_map_including_hero(otherhero, relationship)
+  def rank_on_map_including_hero(otherhero=@otherhero, relationship)
     list = {}
 
     @user_heroes.each do |ashero|
@@ -140,7 +141,7 @@ class Coach
       results << score_on_map_as_hero(ashero)
     end
 
-    results.sum / results.count
+    mean(results)
   end
 
   def rank_in_draft
