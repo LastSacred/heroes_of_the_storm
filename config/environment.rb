@@ -9,4 +9,5 @@ require_all 'lib'
 PROFILE = Profile.find(1)
 BATTLETAG = PROFILE.battletag
 REGION = PROFILE.region
+
 # 13884213

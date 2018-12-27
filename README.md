@@ -18,6 +18,4 @@ In the meantime you can speed up the process a little by manually setting the va
 
 ## still to do
 
-TODO: build stats interface
-
 TODO: build run file to chose between options: setup user, import, stats, draft

@@ -34,7 +34,7 @@ require_relative "../config/environment.rb"
 # otherhero = withheroes[0]
 # relationship = "teammate"
 
-Stats.new
+Draft.new
 
 binding.pry
 0

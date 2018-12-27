@@ -6,7 +6,11 @@ class Coach
   #TODO: allow users to manually include and exclude user_heroes. Saves in db
   def initialize(params={})
     @user_picks = HeroPick.all.select { |pick| pick[:picked_by] == "user" }
-    @user_heroes = @user_picks.collect { |pick| pick.hero }.uniq
+    if PROFILE.list_type == "auto"
+      @user_heroes = @user_picks.collect { |pick| pick.hero }.uniq
+    else
+      @user_heroes = Hero.all.select { |hero| hero.on_list == 1}
+    end
     @map = params[:map]
     @withheroes = params[:withheroes]
     @againstheroes = params[:againstheroes]

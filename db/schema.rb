@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_24_043129) do
+ActiveRecord::Schema.define(version: 2018_12_27_025617) do
 
   create_table "hero_picks", force: :cascade do |t|
     t.string "picked_by"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_12_24_043129) do
   create_table "heroes", force: :cascade do |t|
     t.string "name"
     t.string "role"
+    t.integer "on_list"
   end
 
   create_table "maps", force: :cascade do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2018_12_24_043129) do
     t.string "battletag"
     t.integer "last_import"
     t.integer "region"
+    t.text "list_type"
   end
 
 end
