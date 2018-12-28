@@ -21,7 +21,7 @@ class Draft
     puts "Enter map:"
     input = find_by_shorthand(Map.all)
 
-    #FIXME: go to run if input == "back"
+    Menu.new if input == "back"
 
     puts ""
     puts input.name.green
@@ -38,6 +38,7 @@ class Draft
     puts "2. Enter a teammate pick"
     puts "3. Enter an opponent pick"
     puts "4. Remove a hero entry"
+    #TODO: new draft option
   end
 
   def enter_ban
@@ -63,12 +64,6 @@ class Draft
     return if input == "back"
     @draft.againstheroes << input
   end
-
-  # def print_hero_list(list)
-  #   list.each do |hero|
-  #     puts hero.name.yellow
-  #   end
-  # end
 
   def show_selections
     puts ""

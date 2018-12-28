@@ -17,5 +17,3 @@ Currently, the import process uses APIs to search every match record on http://h
 In the meantime you can speed up the process a little by manually setting the value under PROFILE.last_import. Go to http://hotsapi.net/swagger and do a manual search by id. Look at the date created for the search result to find an entry created shortly before you uploaded your first one. Once you find one, use its id number as the last import. Use the Replays Uploaded counter in the top right to help you estimate.
 
 ## still to do
-
-TODO: build run file to chose between options: setup user, import, stats, draft

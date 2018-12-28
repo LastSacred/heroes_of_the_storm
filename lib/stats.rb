@@ -111,7 +111,7 @@ class Stats
       main_options
 
       input = gets.strip
-      #FIXME: go to run if input == "back"
+      Menu.new if input == "back"
       exit if input == "exit"
 
       case input

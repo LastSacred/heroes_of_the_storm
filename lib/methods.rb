@@ -2,7 +2,7 @@ def welcome_info
   puts ""
   puts "When typing names of heroes and maps, you don't have to type the whole name."
   puts "Type enough characters to make it unique. Spaces and special characters are ignored."
-  puts "You may always go back by typing 'back' or exit by typing 'exit'"
+  puts "You can always go back by typing 'back' or exit by typing 'exit'"
 end
 
 def find_by_shorthand(objects)

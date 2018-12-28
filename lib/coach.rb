@@ -2,8 +2,6 @@ class Coach
   attr_reader :user_picks, :user_heroes
   attr_accessor :map, :withheroes, :againstheroes, :bans, :otherhero
 
-  #params - :map :withheroes :againstheroes :bans
-  #TODO: allow users to manually include and exclude user_heroes. Saves in db
   def initialize(params={})
     @user_picks = HeroPick.all.select { |pick| pick[:picked_by] == "user" }
     if PROFILE.list_type == "auto"
