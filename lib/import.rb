@@ -27,10 +27,30 @@ class Import
     end
   end
   #TODO: add hero and map import with hero roles
-  def initialize
+
+  def import_maps
+    data = RestClient.get 'http://hotsapi.net/api/v1/maps'
+    data = JSON.parse(data.body)
+
+    data.each do |map|
+      Map.find_or_create_by(name: map["name"])
+    end
+  end
+
+  def import_heroes
+    data = RestClient.get 'http://hotsapi.net/api/v1/heroes'
+    data = JSON.parse(data.body)
+
+    data.each do |hero|
+      this_hero = Hero.find_or_create_by(name: hero["name"])
+      this_hero.role = hero["role"].upcase[0..3] if !this_hero.role
+      this_hero.save
+    end
+  end
+
+  def import_matches
     loop do
       data = RestClient.get 'http://hotsapi.net/api/v1/replays/', {params: {min_id: (PROFILE.last_import + 1), with_players: true}}
-      break if data.body == []
       data = JSON.parse(data.body)
 
       data.each do |match|
@@ -71,7 +91,12 @@ class Import
       end
       sleep(4)
     end
+  end
 
+  def initialize
+    import_maps
+    import_heroes
+    import_matches
   end
 
 end

@@ -53,8 +53,8 @@ class Coach
   end
 
   def sort_and_print(list)
-    list.sort_by { |name, score| score }.each do |name, score|
-      puts score.to_s.blue + "   " + name.yellow
+    list.sort_by { |hero, score| score }.each do |hero, score|
+      puts score.to_s.blue + "   " + hero.role.light_blue + "   " + hero.name.yellow
     end
   end
 
@@ -74,7 +74,7 @@ class Coach
     list = {}
 
     @user_heroes.each do |ashero|
-      list[ashero.name] = score_as_hero(ashero)
+      list[ashero] = score_as_hero(ashero)
     end
 
     sort_and_print(list)
@@ -90,7 +90,7 @@ class Coach
     list = {}
 
     @user_heroes.each do |ashero|
-      list[ashero.name] = score_including_hero_as_hero(otherhero, ashero, relationship)
+      list[ashero] = [score_including_hero_as_hero(otherhero, ashero, relationship)]
     end
 
     sort_and_print(list)
@@ -106,7 +106,7 @@ class Coach
     list = {}
 
     @user_heroes.each do |ashero|
-      list[ashero.name] = score_on_map_including_hero_as_hero(otherhero, ashero, relationship)
+      list[ashero] = score_on_map_including_hero_as_hero(otherhero, ashero, relationship)
     end
 
     sort_and_print(list)
@@ -122,7 +122,7 @@ class Coach
     list = {}
 
     @user_heroes.each do |ashero|
-      list[ashero.name] = score_on_map_as_hero(ashero)
+      list[ashero] = score_on_map_as_hero(ashero)
     end
 
     sort_and_print(list)
@@ -151,7 +151,7 @@ class Coach
 
     user_heroes.each do |ashero|
       if !(@withheroes + @againstheroes + @bans).include?(ashero)
-        list[ashero.name] = score_in_draft_as_hero(ashero)
+        list[ashero] = score_in_draft_as_hero(ashero)
       end
     end
 
