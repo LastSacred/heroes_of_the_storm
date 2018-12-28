@@ -26,7 +26,6 @@ class Import
       0
     end
   end
-  #TODO: add hero and map import with hero roles
 
   def import_maps
     data = RestClient.get 'http://hotsapi.net/api/v1/maps'

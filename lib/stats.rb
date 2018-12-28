@@ -28,7 +28,7 @@ class Stats
   def by_map
     puts ""
     puts "All maps"
-    print_map_list(Map.all)
+    print_map_list(Map.all.order(:name))
 
     puts ""
     puts "Enter map:"
@@ -49,7 +49,7 @@ class Stats
   def by_otherhero(relationship)
     puts ""
     puts "All heroes"
-    print_hero_list(Hero.all)
+    print_hero_list(Hero.all.order(:name))
 
     puts ""
     puts "Enter hero:"
@@ -72,12 +72,12 @@ class Stats
   def by_map_and_other_hero(relationship)
     puts ""
     puts "All maps"
-    print_map_list(Map.all)
+    print_map_list(Map.all.order(:name))
 
     puts ""
     puts "Enter map:"
 
-    map = find_by_shorthand(Map.all)
+    map = find_by_shorthand(Map.all.order(:name))
     return if map == "back"
     @stats.map = map
 

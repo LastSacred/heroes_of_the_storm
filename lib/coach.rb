@@ -54,7 +54,7 @@ class Coach
 
   def sort_and_print(list)
     list.sort_by { |hero, score| score }.each do |hero, score|
-      puts score.to_s.blue + "   " + hero.role.light_blue + "   " + hero.name.yellow
+      puts score.to_s.blue + "   " + hero.role.cyan + "   " + hero.name.yellow
     end
   end
 
@@ -90,7 +90,7 @@ class Coach
     list = {}
 
     @user_heroes.each do |ashero|
-      list[ashero] = [score_including_hero_as_hero(otherhero, ashero, relationship)]
+      list[ashero] = score_including_hero_as_hero(otherhero, ashero, relationship)
     end
 
     sort_and_print(list)
