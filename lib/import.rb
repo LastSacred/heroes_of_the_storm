@@ -30,6 +30,7 @@ class Import
   def import_maps
     data = RestClient.get 'http://hotsapi.net/api/v1/maps'
     data = JSON.parse(data.body)
+    puts "Waiting for more records...".cyan if data.size < 100
 
     data.each do |map|
       Map.find_or_create_by(name: map["name"])

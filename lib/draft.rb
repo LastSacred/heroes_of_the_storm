@@ -38,7 +38,7 @@ class Draft
     puts "2. Enter a teammate pick"
     puts "3. Enter an opponent pick"
     puts "4. Remove a hero entry"
-    #TODO: new draft option
+    puts "5. Start a new draft"
   end
 
   def enter_ban
@@ -122,6 +122,8 @@ class Draft
         enter_opponent
       when "4"
         remove_hero
+      when "5"
+        Draft.new
       else
         puts ""
         puts "Invalid selection. Try again."
