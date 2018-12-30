@@ -28,9 +28,10 @@ class Import
   end
 
   def import_maps
+    puts ""
+    puts "Searching for new maps...".cyan
     data = RestClient.get 'http://hotsapi.net/api/v1/maps'
     data = JSON.parse(data.body)
-    puts "Waiting for more records...".cyan if data.size < 100
 
     data.each do |map|
       Map.find_or_create_by(name: map["name"])
@@ -38,6 +39,8 @@ class Import
   end
 
   def import_heroes
+    puts ""
+    puts "Searching for new heroes...".cyan
     data = RestClient.get 'http://hotsapi.net/api/v1/heroes'
     data = JSON.parse(data.body)
 
@@ -48,19 +51,37 @@ class Import
     end
   end
 
+  # def import_match_dates
+  #   Match.all.each do |match|
+  #     if !match.game_date
+  #       id = match.replay_id
+  #       data = RestClient.get "http://hotsapi.net/api/v1/replays/#{id}", {params: {min_id: (PROFILE.last_import + 1), with_players: true}}
+  #       data = JSON.parse(data.body)
+  #       match.game_date = data["game_date"][0..9]
+  #       match.save
+  #     end
+  #     puts "#{match.replay_id}   #{match.game_date}".blue
+  #     sleep(2)
+  #   end
+  # end
+
   def import_matches
+    puts ""
+    puts "Searching for new matches...".cyan
     loop do
       data = RestClient.get 'http://hotsapi.net/api/v1/replays/', {params: {min_id: (PROFILE.last_import + 1), with_players: true}}
       data = JSON.parse(data.body)
+      puts "Waiting for more records...".cyan if data.size < 100
 
       data.each do |match|
         if match["region"] == REGION && match["game_type"] == "HeroLeague" && !Match.find_by(replay_id: match["id"]) && (user = get_user(match))
           puts "FOUND!!!!!!!!!!!!!!!!!!!!!!!!".green
           puts "#{match["game_type"]} - #{match["region"]} - #{match["id"]}".blue
-          #TODO: add game date
+
           this_match = Match.create(
             replay_id: match["id"],
             result: user_win?(user),
+            game_date: match["game_date"][0..9]
           )
 
           this_map = Map.find_or_create_by(name: match["game_map"])
@@ -96,6 +117,7 @@ class Import
   def initialize
     import_maps
     import_heroes
+    #import_match_dates
     import_matches
   end
 

@@ -1,11 +1,12 @@
 class Coach
-  attr_reader :user_picks, :user_heroes
+  attr_reader :recent_matches, :user_heroes
   attr_accessor :map, :withheroes, :againstheroes, :bans, :otherhero
 
   def initialize(params={})
-    @user_picks = HeroPick.all.select { |pick| pick[:picked_by] == "user" }
+    @recent_matches = Match.all.select { |match| match.game_date >= (Date.today - 90).strftime("%Y-%m-%d") }
+    binding.pry
     if PROFILE.list_type == "auto"
-      @user_heroes = @user_picks.collect { |pick| pick.hero }.uniq
+      @user_heroes = @recent_matches.collect { |match| match.hero_picks.find { |pick| pick.picked_by == "user" }.hero }.uniq
     else
       @user_heroes = Hero.all.select { |hero| hero.on_list == 1}
     end
@@ -17,8 +18,8 @@ class Coach
   end
 
   def matches_as_hero(ashero)
-    @user_picks.select { |pick| pick.hero == ashero }.collect do |pick|
-      pick.match
+    @recent_matches.select do |match|
+      match.hero_picks.find { |pick| pick.picked_by == "user" && pick.hero == ashero }
     end
   end
 
@@ -59,7 +60,7 @@ class Coach
   end
 
   def score_as_all_heroes
-    results = Match.all.collect { |match| match.result * 1000 }
+    results = @recent_matches.collect { |match| match.result * 1000 }
     mean(results)
   end
 
