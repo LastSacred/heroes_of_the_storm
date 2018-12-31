@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_204949) do
+ActiveRecord::Schema.define(version: 2018_12_31_161655) do
 
   create_table "hero_picks", force: :cascade do |t|
     t.string "picked_by"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2018_12_29_204949) do
     t.integer "map_id"
     t.integer "replay_id"
     t.string "game_date"
+    t.string "original_path"
+    t.string "game_type"
   end
 
   create_table "profiles", force: :cascade do |t|

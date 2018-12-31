@@ -3,8 +3,8 @@ class Coach
   attr_accessor :map, :withheroes, :againstheroes, :bans, :otherhero
 
   def initialize(params={})
-    @recent_matches = Match.all.select { |match| match.game_date >= (Date.today - 90).strftime("%Y-%m-%d") }
-    binding.pry
+    #TODO: allow game type and number of days to be changed
+    @recent_matches = Match.all.select { |match| match.replay_id && match.game_type == "HeroLeague" && match.game_date && match.game_date >= (Date.today - 90).strftime("%Y-%m-%d") }
     if PROFILE.list_type == "auto"
       @user_heroes = @recent_matches.collect { |match| match.hero_picks.find { |pick| pick.picked_by == "user" }.hero }.uniq
     else

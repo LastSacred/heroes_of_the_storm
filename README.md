@@ -8,12 +8,8 @@ Heroes of the Storm wiki: https://en.wikipedia.org/wiki/Heroes_of_the_Storm
 
 ## Notes
 
-The first release of this project will only accommodate for one user, the database will be constructed from only that user's battles. It can later be adapted for multiple users by adding a Player model to the database, or storing a database for each player.
+The first release of this project will only accommodate one user, the database will be constructed from only that user's battles.
 
 ## Import
 
-Currently, the import process uses APIs to search every match record on http://hotsapi.net. You must have uploaded your replays for this to work. Instructions are available on how to do this here: http://hotsapi.net/upload. This can be a very long and inefficient process. I will work on a way to parse the replays myself.
-
-In the meantime you can speed up the process a little by manually setting the value under PROFILE.last_import. Go to http://hotsapi.net/swagger and do a manual search by id. Look at the date created for the search result to find an entry created shortly before you uploaded your first one. Once you find one, use its id number as the last import. Use the Replays Uploaded counter in the top right to help you estimate.
-
-## still to do
+ I have not yet devised a way to parse replays myself. For now, the import process works by uploading all replays in the indicated directory to http://hotsapi.net storing a match record for each with only a replay id. It then gets the full data for every match by searching for each replay id.
