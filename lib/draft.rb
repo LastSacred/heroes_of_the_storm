@@ -19,9 +19,9 @@ class Draft
   def get_map
     puts ""
     puts "Enter map:"
-    input = find_by_shorthand(Map.all)
+    input = ShortFind.object(Map.all)
 
-    Menu.new if input == "back"
+    Menu.new if !input
 
     puts ""
     puts input.name.green
@@ -44,24 +44,24 @@ class Draft
   def enter_ban
     puts ""
     puts "Enter a banned hero:"
-    input = check_for_duplicates(find_by_shorthand(Hero.all))
-    return if input == "back"
+    input = check_for_duplicates(ShortFind.object(Hero.all))
+    return if !input
     @draft.bans << input
   end
 
   def enter_teammate
     puts ""
     puts "Enter a teammate pick:"
-    input = check_for_duplicates(find_by_shorthand(Hero.all))
-    return if input == "back"
+    input = check_for_duplicates(ShortFind.object(Hero.all))
+    return if !input
     @draft.withheroes << input
   end
 
   def enter_opponent
     puts ""
     puts "Enter a opponent pick:"
-    input = check_for_duplicates(find_by_shorthand(Hero.all))
-    return if input == "back"
+    input = check_for_duplicates(ShortFind.object(Hero.all))
+    return if !input
     @draft.againstheroes << input
   end
 
@@ -88,8 +88,8 @@ class Draft
   def remove_hero
     puts ""
     puts "Remove a hero entry:"
-    hero = find_by_shorthand(Hero.all)
-    return if hero == "back"
+    hero = ShortFind.object(Hero.all)
+    return if !hero
     @draft.bans.delete(hero)
     @draft.withheroes.delete(hero)
     @draft.againstheroes.delete(hero)
@@ -98,8 +98,8 @@ class Draft
   def change_map
     puts ""
     puts "Enter map:"
-    input = find_by_shorthand(Map.all)
-    return if input =="back"
+    input = ShortFind.object(Map.all)
+    return if !input
     @draft.map = input
   end
 

@@ -47,7 +47,8 @@ class Settings
       puts "4. Clear the list"
     end
   end
-
+#FIXME: changing to auto doesn't work
+#TODO: remove manually set last import
   def change_hero_list
     loop do
       display_hero_list
@@ -72,13 +73,15 @@ class Settings
         when "2"
           puts ""
           puts "Enter hero:"
-          hero = find_by_shorthand(Hero.all)
+          hero = ShortFind.object(Hero.all)
+          return if !hero
           hero.on_list = 1
           hero.save
         when "3"
           puts ""
           puts "Enter hero:"
-          hero = find_by_shorthand(Hero.all)
+          hero = ShortFind.object(Hero.all)
+          return if !hero
           hero.on_list = 0
           hero.save
         when "4"

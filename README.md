@@ -13,3 +13,5 @@ The first release of this project will only accommodate one user, the database w
 ## Import
 
  I have not yet devised a way to parse replays myself. For now, the import process works by uploading all replays in the indicated directory to http://hotsapi.net storing a match record for each with only a replay id. It then gets the full data for every match by searching for each replay id.
+
+ #TODO: take out find_by_shorthand for ShortFind.object

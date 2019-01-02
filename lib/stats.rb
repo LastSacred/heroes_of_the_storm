@@ -33,8 +33,8 @@ class Stats
     puts ""
     puts "Enter map:"
 
-    input = find_by_shorthand(Map.all)
-    return if input == "back"
+    input = ShortFind.object(Map.all)
+    return if !input
     @stats.map = input
 
     puts ""
@@ -54,8 +54,8 @@ class Stats
     puts ""
     puts "Enter hero:"
 
-    input = find_by_shorthand(Hero.all)
-    return if input == "back"
+    input = ShortFind.object(Hero.all)
+    return if !input
     @stats.otherhero = input
 
     puts ""
@@ -77,8 +77,8 @@ class Stats
     puts ""
     puts "Enter map:"
 
-    map = find_by_shorthand(Map.all.order(:name))
-    return if map == "back"
+    map = ShortFind.object(Map.all.order(:name))
+    return if !map
     @stats.map = map
 
     puts ""
@@ -88,8 +88,8 @@ class Stats
     puts ""
     puts "Enter hero:"
 
-    otherhero = find_by_shorthand(Hero.all)
-    return if otherhero == "back"
+    otherhero = ShortFind.object(Hero.all)
+    return if !otherhero
     @stats.otherhero = otherhero
 
     puts ""

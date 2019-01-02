@@ -72,7 +72,7 @@ class Import
 
           puts ""
           puts match.replay_id.to_s.green
-          binding.pry if !match.replay_id
+          # binding.pry if !match.replay_id
         end
 
         sleep(1.5)
