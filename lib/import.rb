@@ -86,8 +86,15 @@ class Import
 
     Match.all.each do |match|
       if !match.game_date && match.replay_id
-        data = RestClient.get "http://hotsapi.net/api/v1/replays/#{match.replay_id}"
-        data = JSON.parse(data.body)
+          data = nil
+        loop do
+          data = RestClient.get "http://hotsapi.net/api/v1/replays/#{match.replay_id}"
+          data = JSON.parse(data.body)
+          break if data["processed"]
+          puts ""
+          puts "Waiting for record to finish processing...".cyan
+          sleep(5)
+        end
         user = get_user(data)
 
         map = Map.find_or_create_by(name: data["game_map"])
