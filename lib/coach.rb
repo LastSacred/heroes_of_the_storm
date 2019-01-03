@@ -77,7 +77,7 @@ class Coach
     @user_heroes.each do |ashero|
       list[ashero] = score_as_hero(ashero)
     end
-
+    
     sort_and_print(list)
   end
 

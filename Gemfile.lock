@@ -42,6 +42,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    short_find (1.0.0)
     sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -70,6 +71,7 @@ DEPENDENCIES
   rake
   require_all
   rest-client
+  short_find
   sinatra-activerecord
   sqlite3
 

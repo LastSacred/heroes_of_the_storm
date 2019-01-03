@@ -47,7 +47,6 @@ class Settings
       puts "4. Clear the list"
     end
   end
-#FIXME: changing to auto doesn't work
 #TODO: remove manually set last import
   def change_hero_list
     loop do
