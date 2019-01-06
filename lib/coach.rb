@@ -53,12 +53,6 @@ class Coach
     mean(results)
   end
 
-  def sort_and_print(list)
-    list.sort_by { |hero, score| score }.each do |hero, score|
-      puts score.to_s.blue + "   " + hero.role.cyan + "   " + hero.name.yellow
-    end
-  end
-
   def score_as_all_heroes
     results = @recent_matches.collect { |match| match.result * 1000 }
     mean(results)
@@ -77,8 +71,8 @@ class Coach
     @user_heroes.each do |ashero|
       list[ashero] = score_as_hero(ashero)
     end
-    
-    sort_and_print(list)
+
+    Printer.rank_list(list)
   end
 
   def score_including_hero_as_hero(otherhero, ashero, relationship)
@@ -94,7 +88,7 @@ class Coach
       list[ashero] = score_including_hero_as_hero(otherhero, ashero, relationship)
     end
 
-    sort_and_print(list)
+    Printer.rank_list(list)
   end
 
   def score_on_map_including_hero_as_hero(otherhero, ashero, relationship)
@@ -110,7 +104,7 @@ class Coach
       list[ashero] = score_on_map_including_hero_as_hero(otherhero, ashero, relationship)
     end
 
-    sort_and_print(list)
+    Printer.rank_list(list)
   end
 
   def score_on_map_as_hero(ashero)
@@ -126,7 +120,7 @@ class Coach
       list[ashero] = score_on_map_as_hero(ashero)
     end
 
-    sort_and_print(list)
+    Printer.rank_list(list)
   end
 
   def score_in_draft_as_hero(ashero)
@@ -156,7 +150,7 @@ class Coach
       end
     end
 
-    sort_and_print(list)
+    Printer.rank_list(list)
   end
 
 end

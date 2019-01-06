@@ -1,23 +1,8 @@
 class Menu
 
-  def welcome
-    puts ""
-    puts "Hello again #{BATTLETAG.split("#")[0]}, I'm your Personal HotS Coach."
-    welcome_info
-  end
-
-  def main_options
-    puts ""
-    puts "What would you like to do?"
-    puts "1. Start Draft Coach"
-    puts "2. Start Stats Coach"
-    puts "3. Start Import"
-    puts "4. Change profile settings"
-  end
-
   def main
     loop do
-      main_options
+      Printer.menu_options
 
       input = gets.strip
       Menu.new if input == "back"
@@ -33,15 +18,14 @@ class Menu
       when "4"
         Settings.new
       else
-        puts ""
-        puts "Invalid selection. Try again."
+        Printer.invalid
       end
     end
   end
 
   def initialize
     if Profile.all.find { |profile| profile.active == 1 }
-      welcome
+      Printer.welcome(self.class.name)
       main
     else
       #TODO: add multiple pofiles, and no active profile detection

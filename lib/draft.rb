@@ -3,63 +3,47 @@ class Draft
   def check_for_duplicates(result)
     if (@draft.withheroes + @draft.againstheroes + @draft.bans).include?(result)
       puts ""
-      puts "Hero already selected. Try again."
+      puts "Hero already selected".red
+      puts "Try again"
       "back"
     else
       result
     end
   end
 
-  def welcome
-    puts ""
-    puts "Starting Draft Coach"
-    welcome_info
-  end
-
   def get_map
-    puts ""
-    puts "Enter map:"
-    input = ShortFind.object(Map.all)
+    Printer.prompt("Enter the map")
 
+    input = ShortFind.object(Map.all)
     Menu.new if !input
 
     puts ""
     puts input.name.green
-    puts "---------------------------".red
-    puts ""
+    Printer.redline
 
     input
   end
 
-  def main_options
-    puts ""
-    puts "What would you like to do?"
-    puts "1. Enter a banned hero"
-    puts "2. Enter a teammate pick"
-    puts "3. Enter an opponent pick"
-    puts "4. Remove a hero entry"
-    puts "5. Start a new draft"
-  end
-
   def enter_ban
-    puts ""
-    puts "Enter a banned hero:"
+    Printer.prompt("Enter a banned hero")
+
     input = check_for_duplicates(ShortFind.object(Hero.all))
     return if !input
+
     @draft.bans << input
   end
-
+  #TODO: combine enter teammate and enter opponent
   def enter_teammate
-    puts ""
-    puts "Enter a teammate pick:"
+    Printer.prompt("Enter a teammate pick")
+
     input = check_for_duplicates(ShortFind.object(Hero.all))
     return if !input
+
     @draft.withheroes << input
   end
 
   def enter_opponent
-    puts ""
-    puts "Enter a opponent pick:"
+    Printer.prompt("Enter an opponent pick")
     input = check_for_duplicates(ShortFind.object(Hero.all))
     return if !input
     @draft.againstheroes << input
@@ -71,23 +55,21 @@ class Draft
 
     puts ""
     puts "Bans"
-    print_hero_list(@draft.bans)
+    Printer.list(@draft.bans)
 
     puts ""
     puts "Team picks"
-    print_hero_list(@draft.withheroes)
+    Printer.list(@draft.withheroes)
 
     puts ""
     puts "Opponent picks"
-    print_hero_list(@draft.againstheroes)
+    Printer.list(@draft.againstheroes)
 
-    puts "---------------------------".red
-    puts ""
+    Printer.redline
   end
 
   def remove_hero
-    puts ""
-    puts "Remove a hero entry:"
+    Printer.prompt("Remove a hero entry")
     hero = ShortFind.object(Hero.all)
     return if !hero
     @draft.bans.delete(hero)
@@ -96,8 +78,7 @@ class Draft
   end
 
   def change_map
-    puts ""
-    puts "Enter map:"
+  Printer.prompt("Enter the map")
     input = ShortFind.object(Map.all)
     return if !input
     @draft.map = input
@@ -107,7 +88,7 @@ class Draft
     loop do
       @draft.rank_in_draft
 
-      main_options
+      Printer.draft_options
 
       input = gets.strip
       change_map if input == "back"
@@ -125,15 +106,14 @@ class Draft
       when "5"
         Draft.new
       else
-        puts ""
-        puts "Invalid selection. Try again."
+        Printer.invalid
       end
       show_selections
     end
   end
 
   def initialize
-    welcome
+    Printer.welcome(self.class.name)
     @draft = Coach.new(map: get_map, withheroes: [], againstheroes: [], bans: [])
     main
   end
