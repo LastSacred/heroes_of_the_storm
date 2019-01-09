@@ -20,8 +20,9 @@ class Settings
     hero = ShortFind.object(Hero.all)
     return if !hero
 
-    hero.on_list = setting
-    hero.save
+    hero.update(on_list: setting)
+    # hero.on_list = setting
+    # hero.save
   end
 
   def change_hero_list
@@ -50,8 +51,9 @@ class Settings
         add_remove_hero(:remove)
         when "4"
           Hero.all.each do |hero|
-            hero.on_list = 0
-            hero.save
+            hero.update(on_list: 0)
+            # hero.on_list = 0
+            # hero.save
           end
         else
           Printer.invalid

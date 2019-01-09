@@ -17,12 +17,13 @@ class Coach
     @otherhero = params[:otherhero]
   end
 
+  #
   def matches_as_hero(ashero)
     @recent_matches.select do |match|
       match.hero_picks.find { |pick| pick.picked_by == "user" && pick.hero == ashero }
     end
   end
-
+  #
   def matches_on_map_as_hero(ashero)
     matches_as_hero(ashero).select do |match|
       match.map == @map
@@ -45,7 +46,8 @@ class Coach
 
   def get_score(matches, filler)
     results = matches.collect { |match| match.result * 1000 }
-
+    binding.pry
+    
     while results.count < 10 do
       results << filler
     end
@@ -78,6 +80,7 @@ class Coach
   def score_including_hero_as_hero(otherhero, ashero, relationship)
     matches = matches_including_hero_as_hero(otherhero, ashero, relationship)
     filler = score_as_hero(ashero)
+
     get_score(matches, filler)
   end
 
@@ -94,6 +97,7 @@ class Coach
   def score_on_map_including_hero_as_hero(otherhero, ashero, relationship)
     matches = matches_on_map_including_hero_as_hero(otherhero, ashero, relationship)
     filler = score_including_hero_as_hero(otherhero, ashero, relationship)
+
     get_score(matches, filler)
   end
 
@@ -110,6 +114,7 @@ class Coach
   def score_on_map_as_hero(ashero)
     matches = matches_on_map_as_hero(ashero)
     filler = score_as_hero(ashero)
+
     get_score(matches, filler)
   end
 
