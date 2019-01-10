@@ -46,11 +46,11 @@ class Coach
 
   def get_score(matches, filler)
     results = matches.collect { |match| match.result * 1000 }
-    
+    # binding.pry
     while results.count < 10 do
       results << filler
     end
-
+    # binding.pry
     mean(results)
   end
 
@@ -131,11 +131,11 @@ class Coach
     results = []
 
     @withheroes.each do |otherhero|
-      results << score_including_hero_as_hero(otherhero, ashero, "teammate")
+      results << score_on_map_including_hero_as_hero(otherhero, ashero, "teammate")
     end
 
     @againstheroes.each do |otherhero|
-      results << score_including_hero_as_hero(otherhero, ashero, "opponent")
+      results << score_on_map_including_hero_as_hero(otherhero, ashero, "opponent")
     end
 
     while results.count < 10 do
