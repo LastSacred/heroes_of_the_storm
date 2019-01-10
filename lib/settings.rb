@@ -27,6 +27,8 @@ class Settings
 
   def change_hero_list
     loop do
+      @settings = Coach.new
+
       display_hero_list
       Printer.hero_list_options
 
@@ -59,12 +61,13 @@ class Settings
           Printer.invalid
         end
       end
-      @settings = Coach.new
     end
   end
 
   def main
     loop do
+      @settings = Coach.new
+
       Printer.settings_options
 
       input = gets.strip
@@ -88,7 +91,6 @@ class Settings
 
   def initialize
     Printer.welcome(self.class.name)
-    @settings = Coach.new
     main
   end
 

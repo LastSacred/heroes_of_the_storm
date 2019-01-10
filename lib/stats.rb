@@ -82,6 +82,8 @@ class Stats
 
   def main
     loop do
+      @stats = Coach.new
+      
       Printer.stats_options
 
       input = gets.strip
@@ -109,7 +111,6 @@ class Stats
 
   def initialize
     Printer.welcome(self.class.name)
-    @stats = Coach.new
     main
   end
 

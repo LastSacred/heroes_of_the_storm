@@ -46,7 +46,6 @@ class Coach
 
   def get_score(matches, filler)
     results = matches.collect { |match| match.result * 1000 }
-    binding.pry
     
     while results.count < 10 do
       results << filler
