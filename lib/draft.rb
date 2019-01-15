@@ -84,6 +84,7 @@ class Draft
     @draft.map = input
   end
   # FIXME: allow to go back directly from draft
+  # TODO: make map and with/against heroes an attribute of the draft. Abstract ranks as rank class or rename and refactor coach class
   def main
     loop do
       @draft.rank_in_draft

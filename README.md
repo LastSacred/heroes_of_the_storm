@@ -16,10 +16,8 @@ The first release of this project will only accommodate one user, the database w
 
 ## To do
 
-TODO: make map and with/against heroes an attribute of the draft. Abstract ranks as rank class or rename and refactor coach class
+
 
 TODO: search for c# ruby bindings to try to parse replays
 
 TODO: port to rails, wait to change any views
-
-TODO: add AR Lifecycle Callbacks
