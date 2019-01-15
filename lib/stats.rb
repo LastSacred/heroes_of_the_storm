@@ -32,7 +32,7 @@ class Stats
 
     Printer.prompt("Select a hero")
 
-    input = ShortFind.object(Hero.all)
+    input = ShortFind.object(Hero.all.order(:name))
     return if !input
     @stats.otherhero = input
 
@@ -59,7 +59,7 @@ class Stats
 
     puts ""
     puts "All heroes"
-    Printer.list(Hero.all)
+    Printer.list(Hero.all.order(:name))
 
     Printer.prompt("Select a hero")
 
@@ -83,7 +83,7 @@ class Stats
   def main
     loop do
       @stats = Coach.new
-      
+
       Printer.stats_options
 
       input = gets.strip

@@ -66,7 +66,8 @@ class Import
           puts ""
           puts "AI Detected   #{file}".green
         else
-          Match.find_or_create_by(replay_id: data["id"]).update(original_path: file)
+          match = Match.find_or_create_by(replay_id: data["id"])
+          match.update(original_path: file)
           # match.original_path = file if !match.original_path
           # match.save
 
@@ -84,17 +85,28 @@ class Import
     puts ""
     puts "Importing data for uploaded matches...".cyan
 
+    skipped = false
+
     Match.all.each do |match|
       if !match.game_date && match.replay_id
-          data = nil
-        loop do
-          data = RestClient.get "http://hotsapi.net/api/v1/replays/#{match.replay_id}"
-          data = JSON.parse(data.body)
-          break if data["processed"]
-          puts ""
-          puts "Waiting for record to finish processing...".cyan
-          sleep(5)
+
+        data = RestClient.get "http://hotsapi.net/api/v1/replays/#{match.replay_id}"
+        data = JSON.parse(data.body)
+
+        if !data["processed"]
+          if @skip_counter >= 10
+            puts "Stop trying to import #{data["id"]}? (y/n)"
+            match.update(replay_id: nil) if gets.strip == "y"
+          else
+            skipped = true
+            puts "Waiting for #{data["id"]} to finish processing".red
+          end
+
+          next
         end
+
+        puts "Importing #{data["id"]}".green
+
         user = get_user(data)
 
         map = Map.find_or_create_by(name: data["game_map"])
@@ -121,21 +133,25 @@ class Import
           game_type: data["game_type"],
           game_date: data["game_date"][0..9]
         )
-        # match.result = user_win?(user)
-        # match.game_type = data["game_type"]
-        # match.game_date = data["game_date"][0..9]
-        # match.save
 
         puts ""
         puts "#{match.replay_id}   #{match.game_date}".green
 
         sleep(1.5)
+
       else
       end
+    end
+    if skipped
+      @skip_counter += 1
+
+      sleep(5)
+      import_match_data
     end
   end
 
   def initialize
+    @skip_counter = 0
     import_maps
     import_heroes
     upload_replays

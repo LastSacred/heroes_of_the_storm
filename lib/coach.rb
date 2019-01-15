@@ -44,13 +44,13 @@ class Coach
     end
   end
 
-  def get_score(matches, filler)
+  def get_score(matches, filler, sample)
     results = matches.collect { |match| match.result * 1000 }
-    # binding.pry
-    while results.count < 10 do
+
+    while results.count < sample do
       results << filler
     end
-    # binding.pry
+
     mean(results)
   end
 
@@ -61,9 +61,9 @@ class Coach
 
   def score_as_hero(ashero)
     matches = matches_as_hero(ashero)
-    filler = score_as_all_heroes
+    filler = 500
 
-    get_score(matches, filler)
+    get_score(matches, filler, 50)
   end
 
   def rank
@@ -80,7 +80,7 @@ class Coach
     matches = matches_including_hero_as_hero(otherhero, ashero, relationship)
     filler = score_as_hero(ashero)
 
-    get_score(matches, filler)
+    get_score(matches, filler, 10)
   end
 
   def rank_including_hero(otherhero=@otherhero, relationship)
@@ -97,7 +97,7 @@ class Coach
     matches = matches_on_map_including_hero_as_hero(otherhero, ashero, relationship)
     filler = score_including_hero_as_hero(otherhero, ashero, relationship)
 
-    get_score(matches, filler)
+    get_score(matches, filler, 5)
   end
 
   def rank_on_map_including_hero(otherhero=@otherhero, relationship)
@@ -114,7 +114,7 @@ class Coach
     matches = matches_on_map_as_hero(ashero)
     filler = score_as_hero(ashero)
 
-    get_score(matches, filler)
+    get_score(matches, filler, 10)
   end
 
   def rank_on_map

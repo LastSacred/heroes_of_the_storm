@@ -83,7 +83,7 @@ class Draft
     return if !input
     @draft.map = input
   end
-
+  # FIXME: allow to go back directly from draft
   def main
     loop do
       @draft.rank_in_draft

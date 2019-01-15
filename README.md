@@ -13,3 +13,13 @@ The first release of this project will only accommodate one user, the database w
 ## Import
 
  I have not yet devised a way to parse replays myself. For now, the import process works by uploading all replays in the indicated directory to http://hotsapi.net storing a match record for each with only a replay id. It then gets the full data for every match by searching for each replay id.
+
+## To do
+
+TODO: make map and with/against heroes an attribute of the draft. Abstract ranks as rank class or rename and refactor coach class
+
+TODO: search for c# ruby bindings to try to parse replays
+
+TODO: port to rails, wait to change any views
+
+TODO: add AR Lifecycle Callbacks
