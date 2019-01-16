@@ -17,13 +17,17 @@ class Coach
     @otherhero = params[:otherhero]
   end
 
-  #
+
   def matches_as_hero(ashero)
+    # USER.tracked_matches.select do |match|
+    #   match.ashero == ashero
+    # end
+
     @recent_matches.select do |match|
       match.hero_picks.find { |pick| pick.picked_by == "user" && pick.hero == ashero }
     end
   end
-  #
+
   def matches_on_map_as_hero(ashero)
     matches_as_hero(ashero).select do |match|
       match.map == @map
